@@ -11,10 +11,11 @@ drop table if exists iln;
 create table iln (
 	ilncod		varchar(2) not null default '' primary key,
 	ilndes		varchar(80) not null default ''
-);
-comment on table	iln is 'ISO 639 language code';
-comment on column	iln.ilncod is 'Alpha-2 code';
-comment on column	iln.ilndes is 'Description';
+) with(oids);
+
+comment on table iln		is 'ISO 639 language code';
+comment on column iln.ilncod	is 'Alpha-2 code';
+comment on column iln.ilndes	is 'Description';
 
 insert into iln values('aa','Afar');
 insert into iln values('ab','Abkhazian');
@@ -207,12 +208,12 @@ create table icu (
 	icucod		varchar(3) not null default '' primary key,
 	icudes		varchar(80) not null default '',
 	icudas		smallint not null default 0
-);
+) with(oids);
 
-comment on table	icu is 'ISO 639 language code';
-comment on column	icu.icucod is 'Alpha-3 code';
-comment on column	icu.icudes is 'Description';
-comment on column	icu.icudas is 'Digits after decimal separator';
+comment on table icu		is 'ISO 639 language code';
+comment on column icu.icucod	is 'Alpha-3 code';
+comment on column icu.icudes	is 'Description';
+comment on column icu.icudas	is 'Digits after decimal separator';
 
 create table ico (
 	icocod		varchar(2) not null default '' primary key,
@@ -221,7 +222,7 @@ create table ico (
 	icodes		varchar(80) not null default '',
 	icoicucod	varchar(3) references icu,
 	icoilncod	varchar(2) references iln
-);
+) with(oids);
 
 comment on table ico 		is 'ISO 3166 country code';
 comment on column ico.icocod	is 'Alpha-2 code';
@@ -242,13 +243,16 @@ create table reg (
 	regdes text not null default '',
 	regnum numeric not null default '0',
 	regtxt text not null default ''
-);
+) with(oids);
 
-comment on table reg is 'Registry';
-comment on column reg.regcod is 'Id';
-comment on column reg.regdes is 'Description and usage';
-comment on column reg.regnum is 'Numeric value';
-comment on column reg.regtxt is 'Text value';
+comment on table reg 		is 'Registry';
+comment on column reg.regcod	is 'Id';
+comment on column reg.regdes	is 'Description and usage';
+comment on column reg.regnum	is 'Numeric value';
+comment on column reg.regtxt	is 'Text value';
+
+insert into reg values ('cargo.system.language', 'Default system language', 0, 'en');
+insert into reg values ('cargo.system.currency', 'Default system currency', 0, 'EUR');
 
 /*
  * sequences
@@ -258,11 +262,11 @@ drop table if exists seq;
 create table seq (
 	seqcod		varchar(256) not null default '' primary key,
 	seqnxt		bigint not null default 0
-);
+) with(oids);
 
-comment on table seq is 'Identity';
-comment on column seq.seqcod is 'Sequence';
-comment on column seq.seqnxt is 'Next value to be used';
+comment on table seq		is 'Identity';
+comment on column seq.seqcod	is 'Sequence';
+comment on column seq.seqnxt	is 'Next value to be used';
 
 
 
