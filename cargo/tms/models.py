@@ -212,7 +212,7 @@ class Dda(models.Model):
                                db_column = 'ddapaicod')
     ddatzncod = models.ForeignKey(Tzn, on_delete = models.PROTECT,
                                   db_column = 'pobtzncod')   
-    ddaloc = models.PointField(_('pobloc'), geography = True, spatial_index = True)
+    ddapol = models.PolygonField(_('ddapol'), geography = True, spatial_index = True)
     ddatlf = models.CharField(_('ddatlf'), max_length = 20, blank = True)
     ddafax = models.CharField(_('ddafax'), max_length = 20, blank = True)
     ddaeml = models.EmailField(_('ddaeml'), blank = True)       
