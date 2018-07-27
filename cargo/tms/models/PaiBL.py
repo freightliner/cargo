@@ -1,0 +1,4 @@
+
+
+class PaiBL(BaseBL):
+    pass
