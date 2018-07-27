@@ -10,3 +10,6 @@ class OperationNotAllowedException(RuntimeError):
     def __init__(self, msg):
         super.__init__(msg)
 
+class UnsupportedOperationException(RuntimeError):
+    def __init__(self, msg):
+        super.__init__(msg)
