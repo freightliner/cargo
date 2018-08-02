@@ -1,0 +1,9 @@
+{% if listado %}
+    <ul>
+    {% for obj in listado %}
+        <li><a href="/tms/sec/{{ obj.seccod }}/">{{ obj.secval }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay secuencias.</p>
+{% endif %}

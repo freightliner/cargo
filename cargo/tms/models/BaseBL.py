@@ -1,75 +1,57 @@
-from .exceptions import UnsupportedOperationException
+from .exceptions import OperationNotAllowedException
 
 class BaseBL():
+
+    def _deleteAllowed(self, m):
+        return True
+
+    def _preDelete(self, m):
+        pass
     
-
-    @staticmethod
-    def _deleteAllowed(self, context, obj):
-        return True
-
-    @staticmethod
-    def _insertAllowed(self, context, obj):
-        return True
-
-    @staticmethod
-    def _readAllowed(self, context, obj):
-        return True
-
-    @staticmethod
-    def _updateAllowed(self, context, obj):
-        return True
-
-
-
-    @staticmethod
-    def _postDelete(self, context, obj):
+    def _postDelete(self, m):
         pass
 
-    @staticmethod
-    def _preDelete(self, context, obj):
-        pass    
-
-    @staticmethod
-    def _postInsert(self, context, obj):
-        pass
-
-    @staticmethod
-    def _preInsert(self, context, obj):
-        pass  
-
-    @staticmethod
-    def _postRead(self, context, obj):
-        pass
-   
+    def delete(self, m):
+        if not self._deleteAllowed(m):
+            raise OperationNotAllowedException(m)
+        self._preDelete(m)
+        m.save()
+        self._postDelete(m)
     
+    
+    def _insertAllowed(self, m):
+        return True
 
-    @staticmethod
-    def _preRead(self, context, obj):
-        pass  
-
-    @staticmethod
-    def _postUpdate(self, context, obj):
+    def _preInsert(self, m):
+        pass
+    
+    def _postInsert(self, m):
         pass
 
-    @staticmethod
-    def _preUpdate(self, context, obj):
-        pass  
+    def insert(self, m):
+        if not self._insertAllowed(m):
+            raise OperationNotAllowedException(m)
+        self._preInsert(m)
+        m.save()
+        self._postInsert(m)
 
 
-    @staticmethod
-    def delete(self, context, obj):
-        raise UnsupportedOperationException()
+    def _updateAllowed(self, m):
+        return True
 
-    @staticmethod
-    def insert(self, context, obj):
-        raise UnsupportedOperationException()
+    def _preUpdate(self, m):
+        pass
+    
+    def _postUpdate(self, m):
+        pass
 
-    @staticmethod
-    def read(self, context, obj):
-        raise UnsupportedOperationException()
+    def update(self, m):
+        if not self._updateAllowed(m):
+            raise OperationNotAllowedException(m)
+        self._preUpdate(m)
+        m.save()
+        self._postUpdate(m)
 
-    @staticmethod
-    def update(self, context, obj):
-        raise UnsupportedOperationException()
+ 
         
-        
+       

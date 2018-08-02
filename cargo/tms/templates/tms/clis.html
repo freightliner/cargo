@@ -1,0 +1,9 @@
+{% if listado %}
+    <ul>
+    {% for obj in listado %}
+        <li><a href="/tms/cli/{{ cli.clicod}}/">{{ cli.clinom }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay clientes.</p>
+{% endif %}

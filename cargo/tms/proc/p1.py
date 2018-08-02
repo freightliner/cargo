@@ -1,6 +1,13 @@
-from tms.bl.PaiBL import PaiBL
+from tms.models.SecBL import SecBL
+
+def run():
+    context = {}
+
+    SecBL.read(context, 1)    
 
 if __name__ == "__main__":
     context = {}
-    PaiBL.read(context, 1)
+
+    SecBL.read(context, 1)
+
     

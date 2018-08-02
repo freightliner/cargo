@@ -2,14 +2,13 @@
 # -*- coding: utf-8 -*-
 
 class IllegalStateException(RuntimeError):
-    def __init__(self, msg):
-        super.__init(msg)
+    def __init__(self, str = ''):
+        RuntimeError.__init__(self, str)
         
-
 class OperationNotAllowedException(RuntimeError):
-    def __init__(self, msg):
-        super.__init__(msg)
+    def __init__(self, str = ''):
+        RuntimeError.__init__(self, str)
 
 class UnsupportedOperationException(RuntimeError):
-    def __init__(self, msg):
-        super.__init__(msg)
+    def __init__(self, str = ''):
+        RuntimeError.__init__(self, str)

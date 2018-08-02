@@ -1,0 +1,44 @@
+
+
+<html>
+<head>
+    <title>TMS</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto" 
+            rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" 
+            href="{% static 'tms/style.css' %}" />
+</head>
+<body>
+
+<div id="header">
+    <div style="float:left">TMS</div><div>Título del tms</div>
+</div>
+
+<div id="body">
+
+    <div id="login" style="float:left">
+        <form method="post">
+            <fieldset>
+                <legend>Credenciales</legend>
+                Username:&nbsp;<input type="text" name="usuario"><br>
+                Password:&nbsp;<input type="password" name="clave"><br>
+                <input type="submit" value="Submit"></input>
+            </fieldset>
+        </form>
+    </div>
+
+</div>
+
+<div id="footer">
+    <table>
+        <tr>
+            <td>Esto es una línea de la tabla</td>            
+        </tr>
+        <tr>
+            <td>Esto es otra línea de la tabla</td>
+        </tr>        
+    </table>
+</div>
+</body>
+</html>
