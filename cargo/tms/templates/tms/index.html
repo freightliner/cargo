@@ -1,44 +1,25 @@
+{% extends "tms/base.html" %}
 
-
-<html>
-<head>
-    <title>TMS</title>
-    {% load static %}
-    <link href="https://fonts.googleapis.com/css?family=Roboto" 
-            rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" 
-            href="{% static 'tms/style.css' %}" />
-</head>
-<body>
-
-<div id="header">
-    <div style="float:left">TMS</div><div>Título del tms</div>
-</div>
+{%block cont %}
 
 <div id="body">
 
     <div id="login" style="float:left">
-        <form method="post">
-            <fieldset>
-                <legend>Credenciales</legend>
-                Username:&nbsp;<input type="text" name="usuario"><br>
-                Password:&nbsp;<input type="password" name="clave"><br>
-                <input type="submit" value="Submit"></input>
-            </fieldset>
+        <form method="post" action="/tms/signin/">{% csrf_token %}
+            <table class="ui-widget"> 
+                <tr>
+                    <td>Username:</td><td><input type="text" is="p-inputtext" name="username" size="20"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td><td><input type="password" is="p-password" name="password" size="20" inline="false"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td><td><button is="p-button">Sign in</button></td>
+                </tr>
+            </table>
         </form>
     </div>
 
 </div>
 
-<div id="footer">
-    <table>
-        <tr>
-            <td>Esto es una línea de la tabla</td>            
-        </tr>
-        <tr>
-            <td>Esto es otra línea de la tabla</td>
-        </tr>        
-    </table>
-</div>
-</body>
-</html>
+{% endblock %}
