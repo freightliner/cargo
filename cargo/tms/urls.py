@@ -20,4 +20,8 @@ urlpatterns = [
         
         url(r'^pai/$', paiGest.index, name='paiGest'),
         url(r'^sec/$', secGest.index, name='secGest'),
+        
+        url('^home/$', views.HomeView.as_view(), name='home')
+        
+        
 ]
