@@ -29,4 +29,5 @@
 *.app
 
 # spyder
+cargo/.spyproject
 workspace.ini
