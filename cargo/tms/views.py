@@ -18,7 +18,7 @@ def signin(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return render(request, 'tms/index2.html')
+        return render(request, 'tms/mm.html')
     else:
         return render(request, 'tms/index.html')
 

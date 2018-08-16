@@ -1,0 +1,19 @@
+{% extends "tms/base_edit.html" %}
+
+{% block cont %}
+
+<h1>{{ obj.seccod }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'tms:sec.save' obj.seccod %}" method="post">
+    {% csrf_token %}
+    <table>
+        <tr><td><input name="seccod" value="{{ obj.seccod }}" /></td></tr>
+        <tr><td><input name="secval" value="{{ obj.secval }}" /></td></tr>
+        <tr><td><input name="secfmt" value="{{ obj.secfmt }}" /></td></tr>
+    </table>
+<input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

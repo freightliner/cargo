@@ -1,7 +1,8 @@
 {% if listado %}
     <ul>
     {% for obj in listado %}
-        <li><a href="/tms/sec/{{ obj.seccod }}/">{{ obj.secval }}</a></li>
+        <!--<li><a href="/tms/sec/{{obj.seccod}}">{{ obj.secval }}</a></li>-->
+        <li><a href="{% url 'tms:sec.edit' obj.seccod %}">{{ obj.secval }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
