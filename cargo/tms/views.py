@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 
+from django import forms
 
 from django.views.generic import FormView
 from django.views.generic.base import TemplateView
@@ -15,12 +16,14 @@ def signin(request):
     
     print('usuario %s, password %s' % (username, password))
     
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(request=request, username=username, password=password) # compatibilidad 1.10
     if user is not None:
         login(request, user)
         return render(request, 'tms/mm.html')
     else:
         return render(request, 'tms/index.html')
+ 
+
 
 def signout(request):
     logout(request)
@@ -28,6 +31,11 @@ def signout(request):
 
 def mm(request):
     return render(request, 'tms/mm.html')
+
+
+
+    
+
 
 class HomeView(TemplateView):
     template_name = 'tms/index2.html'

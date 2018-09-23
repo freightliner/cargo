@@ -1,0 +1,9 @@
+<h1>{{pai.paicod}}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action='{%  url 'tms:pai.save' pai.paicod %}' method="post">
+    {% csrf_token %}
+    <input type="text" id="painom" value="{{ pai.painom }}" />
+    <input type="submit" value="Salvar" />
+</form>

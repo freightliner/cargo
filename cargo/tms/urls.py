@@ -19,7 +19,14 @@ urlpatterns = [
         
         url(r'^mm/$', views.mm, name='views-mm'),
         
-        url(r'^pai/$', paiGest.index, name='pai'),
+        url(r'^pai/$', paiGest.Index.as_view(), name='pai'),
+        url(r'^pai/(?P<paicod>[a-zA-Z0-9]+)/$', paiGest.Edit.as_view(), name='pai.edit'),
+        
+        #url(r'^pai/$', paiGest.index, name='pai'),
+        #url(r'^pai/(?P<paicod>[a-zA-Z0-9]+)/$', paiGest.edit, name='pai.edit'),
+        url(r'^pai/(?P<paicod>[a-zA-Z0-9]+)/save/$', paiGest.save, name='pai.save'),
+        
+        # ^\S+$
         
         url(r'^sec/$', secGest.index, name='sec'),
         url(r'^sec/(?P<seccod>[a-zA-Z0-9]+)/$', secGest.edit, name='sec.edit'),

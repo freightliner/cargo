@@ -118,7 +118,51 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
-
+        
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s.%(funcName)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'class': 'logging.FileHandler',
+            'filename': '{}/{}'.format(os.path.expanduser("~"),'log/tms.log'),
+            'formatter': 'verbose',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console','file'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'tms': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        }
+    }
+}
+        
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
