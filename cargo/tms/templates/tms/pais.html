@@ -1,13 +1,41 @@
+<!--
 <form method="get" action="{%  url 'tms:pai' %}">
     {% csrf_token %}
-    <input name="qpaicod"/><input name="painom"/><input type="submit"/>
+    <input name="q0paicod" value="pepito"/><input name="q0painom"/><input type="submit"/>
 </form>
-{% if object_list %}
-    <ul>
+-->
+
+<style>
+    td.align-right {
+        text-align : right;
+    }
+</style>
+
+<form method="get" action="{%  url 'tms:pai' %}">
+    {% csrf_token %}
+        
+    <table>
+        <tr>
+            <td>Alpha2</td>
+            <td>Nombre</td>
+            <td>Alpha3</td>
+            <td>Num</td>
+        </tr>
+        <tr>
+            <td><input name="q0paicod" size="5"/></td>
+            <td><input name="q0painom" size="40"/></td>
+            <td><input name="q0paic3c" size="5"/></td>
+            <td><input name="q0painum" size="5"/></td>
+            <td><input type="submit"/></td>
+        </tr>        
     {% for obj in object_list %}
-        <li><a href="{% url 'tms:pai.edit' obj.paicod %}">{{ obj.painom }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No hay paises.</p>
-{% endif %}
+        <tr>
+            <td><a href="{% url 'tms:pai.edit' obj.paicod %}">{{ obj.paicod }}</a></td>
+            <td>{{ obj.painom }}</td>
+            <td>{{ obj.paic3c }}</td>
+            <td class="align-right">{{ obj.painum }}</td>
+        </tr>
+    {% endfor %}       
+    </table>    
+    
+</form<

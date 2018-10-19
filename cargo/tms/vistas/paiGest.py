@@ -43,15 +43,31 @@ class Index(generic.ListView):
             'q0painom' : { 't' : 'string', 'v' : None },
     }
     
+    def procesar_filtros(self, dd):
+        ff = {}
+        for f in dd.items():
+            if not f[0].startswith('q0'):
+                continue
+            if len(f[1]) == 0:
+                continue
+            ff[f[0][2:] + '__icontains'] = f[1]
+        return ff
+    
     def get_queryset(self):
         log.info('-----> Inicio')
         
         log.info(self.request.GET)
+        
+        ff = self.procesar_filtros(self.request.GET)
+        log.info(ff)
+        log.info(len(ff))
 #        qd = self.request.GET.QueryDict
 #        log.info(qd)
+
+        pais = Pai.objects.filter(**ff)
+        log.info('<----- Fin')        
         
-        log.info('<----- Fin')
-        return Pai.objects.all()
+        return pais
     
 class Edit(generic.DetailView):
     model = Pai
