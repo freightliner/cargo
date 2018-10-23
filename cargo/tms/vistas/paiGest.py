@@ -34,39 +34,70 @@ def save(request, paicod):
 class Index(generic.ListView):
     
     template_name = 'tms/pais.html'
-    model = Pai
-    #context_object_name = 'listado'
-    paginate_by = 50
+#    model = Pai
+    paginate_by = 15
     
     campos = {
-            'q0paicod' : { 't' : 'string', 'v' : None },
-            'q0painom' : { 't' : 'string', 'v' : None },
+            'q0paicod' : { 'n':'paicod', 'f':'istartswith'},
+            'q0painom' : { 'n':'painom', 'f':'istartswith'},
+            'q0paic3c' : { 'n':'paic3c', 'f':'istartswith'},
+            'q0painum' : { 'n':'painum'},
+            'q1paicod' : { 'n':'paicod', 'f':'gte'},
+            'q2paicod' : { 'n':'paicod', 'f':'lte'},
+            'q1painom' : { 'n':'painom', 'f':'istartswith'},
+            'q1paic3c' : { 'n':'paic3c', 'f':'gte'},
+            'q2paic3c' : { 'n':'paic3c', 'f':'lte'},
+            'q1painum' : { 'n':'painum', 'f':'gte'},
+            'q2painum' : { 'n':'painum', 'f':'lte'},
     }
     
-    def procesar_filtros(self, dd):
-        ff = {}
-        for f in dd.items():
-            if not f[0].startswith('q0'):
-                continue
+    filtros = {}
+    
+    def procesar_filtros(self, request, campos):
+        log.info('-----> Inicio')
+        filtros = {}
+        
+        for f in request.GET.items():
             if len(f[1]) == 0:
                 continue
-            ff[f[0][2:] + '__icontains'] = f[1]
-        return ff
+            if f[0] in campos:
+                c = campos[f[0]]
+                nombre = c['n']
+                if 'f' in c:
+                    nombre += '__' + c['f']
+                filtros[nombre] = f[1]
+        
+        log.info('     {}'.format(filtros))
+        log.info('<----- Fin')
+        return filtros
     
+    def procesar_action(self, request):
+        log.info('-----> Inicio')
+        if not 'a' in request.GET:
+            log.info('<----- Fin. No action')
+            return
+        
+        if request.GET['a'] == 's':
+            self.filtros = self.procesar_filtros(request, self.campos)
+        
+        log.info('<----- Fin')
+        
+    def get(self, request):
+        log.info('-----> Inicio')
+        
+        self.procesar_action(request)
+        
+        response = super(Index, self).get(request)
+        log.info('<----- Fin')
+        return response
+       
     def get_queryset(self):
         log.info('-----> Inicio')
         
-        log.info(self.request.GET)
-        
-        ff = self.procesar_filtros(self.request.GET)
-        log.info(ff)
-        log.info(len(ff))
-#        qd = self.request.GET.QueryDict
-#        log.info(qd)
+        log.info('     (filtros): {}'.format(self.filtros))
 
-        pais = Pai.objects.filter(**ff)
+        pais = Pai.objects.filter(**self.filtros)
         log.info('<----- Fin')        
-        
         return pais
     
 class Edit(generic.DetailView):

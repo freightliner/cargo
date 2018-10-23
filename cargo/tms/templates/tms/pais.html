@@ -13,8 +13,18 @@
 
 <form method="get" action="{%  url 'tms:pai' %}">
     {% csrf_token %}
-        
+    
     <table>
+        <tr>
+            <td colspan="99">
+                <div style="float:left"><a href="{% url 'tms:pai.add' %}">Crear</a>&nbsp;</div>
+                <div style="float:left"><a href="{% url 'tms:pai.as' %}">Buscar</a>&nbsp;</div>
+                <div style="float:left"><a href="{% url 'tms:pai' %}?page=1">Primera</a>&nbsp;</div>
+                <div style="float:left"><a href="{% url 'tms:pai' %}?page={{ paginator.previous_page_number }}">Anterior</a>&nbsp;</div>
+                <div style="float:left"><a href="{% url 'tms:pai' %}?page={{ paginator.next_page_number }}">Siguiente</a>&nbsp;</div>
+                <div style="float:left"><a href="{% url 'tms:pai' %}?page=last">Última ({{ paginator.num_pages }})</a>&nbsp;</div>
+            </td>
+        </tr>
         <tr>
             <td>Alpha2</td>
             <td>Nombre</td>
@@ -27,6 +37,7 @@
             <td><input name="q0paic3c" size="5"/></td>
             <td><input name="q0painum" size="5"/></td>
             <td><input type="submit"/></td>
+            <td><input type="hidden" name="a" value="s"/></td>
         </tr>        
     {% for obj in object_list %}
         <tr>
@@ -38,4 +49,4 @@
     {% endfor %}       
     </table>    
     
-</form<
+</form>

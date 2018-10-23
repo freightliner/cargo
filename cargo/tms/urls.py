@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.views.generic.base import TemplateView
 
 from tms.vistas import cliGest
 from tms.vistas import paiGest
@@ -21,6 +22,8 @@ urlpatterns = [
         
         url(r'^pai/$', paiGest.Index.as_view(), name='pai'),
         url(r'^pai/(?P<paicod>[a-zA-Z0-9]+)/$', paiGest.Edit.as_view(), name='pai.edit'),
+        url(r'^paiadd/$', paiGest.Edit.as_view(), name='pai.add'),
+        url(r'^paias/$', TemplateView.as_view(template_name='tms/paias.html'), name='pai.as'),
         
         #url(r'^pai/$', paiGest.index, name='pai'),
         #url(r'^pai/(?P<paicod>[a-zA-Z0-9]+)/$', paiGest.edit, name='pai.edit'),
